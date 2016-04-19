@@ -44,6 +44,19 @@ pub fn do_step(field:&Vec<Vec<i8>>)->Vec<Vec<i8>>{
     }
     result
 }
+//TODO: Use &str
+pub fn print_gol_field(field: Vec<Vec<i8>>)->String{
+    let mut result = "".to_string();
+    for row_index in 0..field.len(){
+        for col_index in 0..field[row_index].len(){
+            let content_str = if field[row_index][col_index] == 1 {"o"} else {" "};
+            result = result + content_str
+        }
+        result = result + "\n"
+    }
+
+    result
+}
 
 #[cfg(test)]
 mod test {
@@ -80,4 +93,12 @@ mod test {
         assert_eq!(vec![vec![0,0,0],vec![1,1,1],vec![0,0,0]],do_step(&vec![vec![0,1,0],vec![0,1,0],vec![0,1,0]]));
         assert_eq!(vec![vec![0,0,0],vec![0,1,0],vec![0,0,0]],do_step(&vec![vec![1,0,0],vec![0,1,0],vec![0,0,1]]))
         }
+
+    #[test]
+    fn print_field(){
+        assert_eq!(" o \n".to_string() ,print_gol_field(vec![vec![0,1,0]]));
+        assert_eq!("ooo\n".to_string() ,print_gol_field(vec![vec![1,1,1]]));
+        assert_eq!("o  \n   \n  o\n".to_string() ,print_gol_field(vec![vec![1,0,0],vec![0,0,0],vec![0,0,1]]))
+
+    }
 }
